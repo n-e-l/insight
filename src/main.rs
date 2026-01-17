@@ -24,13 +24,10 @@ impl Application {
 
 impl RenderComponent for Application {
     fn render(&mut self, ctx: &mut RenderContext) {
-        let params = PassParameters {
+        self.pass.render(PassParameters {
             command_buffer: ctx.command_buffer,
             output_image: ctx.swapchain_image
-        };
-        self.pass.render(
-            params
-        );
+        });
     }
 }
 
@@ -40,11 +37,11 @@ fn main() {
 
     Cen::run(
         AppConfig::default()
-            .width(1180)
-            .height(1180)
+            .width(880)
+            .height(880)
             .log_fps(true)
-            .resizable(true)
-            .vsync(false),
+            .resizable(false)
+            .vsync(true),
         Box::new(|ctx| {
             let compute = Arc::new(Mutex::new(Application::new(ctx)));
             ComponentRegistry::new()
